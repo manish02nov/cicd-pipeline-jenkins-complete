@@ -1,6 +1,6 @@
 plugins {
     // Use gradle-node-plugin instead of the outdated com.moowork.node plugin
-    id "com.github.node-gradle.node" version "3.2.1"
+    id "com.moowork.node" version "1.2.0"
 }
 
 // Specify node settings
