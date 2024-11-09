@@ -13,7 +13,7 @@ pipeline {
                 echo $JAVA_HOME               
                 export PATH=/opt/jdk8u212-b03/bin:$PATH
                 java -version
-                ./gradlew build --no-daemon
+                # ./gradlew build --no-daemon
                 '''
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
