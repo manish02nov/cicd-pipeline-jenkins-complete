@@ -6,7 +6,6 @@ plugins {
 // Specify node settings
 node {
     download = false                    // Disable download since we're using a local version
-    nodeHome = '/usr'             // Path where Node.js is installed (adjust as necessary)
     version = "12.22.9"                 // Match with your installed version, though it won’t download it
     npmVersion = "8.5.1"
 }
