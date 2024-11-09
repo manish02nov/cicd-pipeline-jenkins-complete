@@ -1,19 +1,30 @@
 plugins {
-    // Use gradle-node-plugin instead of the outdated com.moowork.node plugin
     id "com.moowork.node" version "1.2.0"
 }
 
-// Specify node settings
+// Node settings
 node {
-    download = false                    // Disable download since we're using a local version
-    version = "12.22.9"                 // Match with your installed version, though it won’t download it
+    download = false                    
+    version = "12.22.9"                 
     npmVersion = "8.5.1"
 }
 
-// Declare a build task
-task build
+// Declare npm tasks
+task npmInstall(type: NpmTask) {
+    args = ['install']
+}
 
-// Declare a task to create a zip of the app
+task npmTest(type: NpmTask) {
+    dependsOn npmInstall
+    args = ['run', 'test']
+}
+
+task npmBuild(type: NpmTask) {
+    dependsOn npmTest
+    args = ['run', 'build'] // Ensure "build" is defined in package.json scripts
+}
+
+// Create a zip of the app
 task zip(type: Zip) {
     from ('.') {
         include "*"
@@ -28,9 +39,6 @@ task zip(type: Zip) {
     baseName "trainSchedule"
 }
 
-// Declare task dependencies
+// Define build task dependencies
 build.dependsOn zip
-zip.dependsOn npm_build
-npm_build.dependsOn npm_test
-npm_test.dependsOn npmInstall
-npm_build.dependsOn npmInstall
+zip.dependsOn npmBuild
