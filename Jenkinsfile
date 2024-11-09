@@ -8,11 +8,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
-                sh 'export JAVA_HOME=/opt/jdk8u212-b03 && echo $JAVA_HOME'
-                sh 'echo $JAVA_HOME'
-                sh 'export PATH=/opt/jdk8u212-b03/bin:$PATH'
-                sh 'java -version'
-                sh './gradlew build --no-daemon'
+                sh '''
+                export JAVA_HOME=/opt/jdk8u212-b03 
+                echo $JAVA_HOME               
+                export PATH=/opt/jdk8u212-b03/bin:$PATH
+                java -version
+                ./gradlew build --no-daemon
+                '''
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
